@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payroll Management</title>
+  <style>
+    /* CSS styling for the interface */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      padding: 8px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h1>Payroll Management System</h1>
+
+  <form id="employeeForm">
+    <h3>Add Employee</h3>
+    <label for="name">Name:</label>
+    <input type="text" id="name" required><br><br>
+    <label for="position">Position:</label>
+    <input type="text" id="position" required><br><br>
+    <label for="salary">Salary:</label>
+    <input type="number" id="salary" required><br><br>
+    <button type="submit">Add Employee</button>
+  </form>
+
+  <h3>Payroll Information</h3>
+  <table id="payrollTable">
+    <tr>
+      <th>Name</th>
+      <th>Position</th>
+      <th>Salary</th>
+    </tr>
+  </table>
+
+  <script>
+    // JavaScript code for handling payroll management
+
+    // Array to store employee data
+    let employees = [];
+
+    // Function to add employee to the array and update the table
+    function addEmployee(event) {
+      event.preventDefault();
+
+      // Get input values
+      const name = document.getElementById('name').value;
+      const position = document.getElementById('position').value;
+      const salary = parseInt(document.getElementById('salary').value);
+
+      // Create employee object
+      const employee = {
+        name: name,
+        position: position,
+        salary: salary
+      };
+
+      // Add employee to the array
+      employees.push(employee);
+
+      // Clear input fields
+      document.getElementById('name').value = '';
+      document.getElementById('position').value = '';
+      document.getElementById('salary').value = '';
+
+      // Update the payroll table
+      updateTable();
+    }
+
+    // Function to calculate and display the payroll information
+    function updateTable() {
+      const table = document.getElementById('payrollTable');
+      table.innerHTML = '<tr><th>Name</th><th>Position</th><th>Salary</th></tr>';
+
+      employees.forEach(employee => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${employee.name}</td><td>${employee.position}</td><td>${employee.salary}</td>`;
+        table.appendChild(row);
+      });
+    }
+
+    // Event listener for the form submission
+    document.getElementById('employeeForm').addEventListener('submit', addEmployee);
+  </script>
+</body>
+</html>
